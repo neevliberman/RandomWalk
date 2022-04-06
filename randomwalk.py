@@ -111,7 +111,7 @@ class RandomWalk:
         """Displays a plot on the screen of a three-dimensional random walk.
 
         Args:
-            steps (_type_): Number of steps per simulation.
+            steps (int): Number of steps per simulation.
                             A step is a single movement along the x, y, or z axis.
             sims (int, optional): Number of simulations to plot. Defaults to 1.
             start (tuple, optional): Starting coordinates, formatted as (x, y, z). Defaults to (0,0,0).
