@@ -18,6 +18,12 @@ class RandomWalk:
             run_num += 1
         
     def clear_imgs(self, dimdirs=[1,2,3]):
+        """Clears the working directory of created directories that resulted from saving figures.
+
+        Args:
+            dimdirs (list, optional): directories to delete in terms of dimension. Defaults to [1,2,3].
+        """
+        
         for dimdir in dimdirs:
             path = f'{dimdir}D-Plots'
             try:
