@@ -25,28 +25,27 @@ class RandomWalk:
             plt.savefig(f"{dim}D-Plots/{dim}D_run{run_num}")
             run_num += 1
         
-    def clear_imgs(self, dimdirs=[1,2,3]):
+    def clear_imgs(self, dimdirs=None):
         """Clears the working directory of created directories that resulted from saving figures.
 
         Args:
             dimdirs (list, optional): directories to delete in terms of dimension. Defaults to [1,2,3].
         """
+        if dimdirs is None:
+               dimdirs = [1,2,3]
+        # otherwise, use the one that's passed in
         
         for dimdir in dimdirs:
             path = f'{dimdir}D-Plots'
-            try:
-                if os.path.exists(path) and os.path.isdir(path):
-                    rmtree(path)
-                    if dimdir == 1:
-                        self.run_num1 = 0
-                    elif dimdir == 2:
-                        self.run_num2 = 0
-                    else:
-                        self.run_num3 = 0
-                        
-            except Exception:
-                continue
-    
+            if os.path.exists(path) and os.path.isdir(path):
+                rmtree(path)
+                if dimdir == 1:
+                    self.run_num1 = 0
+                elif dimdir == 2:
+                    self.run_num2 = 0
+                else:
+                    self.run_num3 = 0
+
     def _enforce_iter(self, obj):
         """Internal method used for enforcing the "start" parameter for two_dim and three_dim
            to be an iterable.
