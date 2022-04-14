@@ -1,17 +1,25 @@
 import random
-import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-import numpy as np
 import os
 from shutil import rmtree
 
+import matplotlib.pyplot as plt
+
+
 class RandomWalk:
     def __init__(self):
+        """Constructor for the class. Stores variables used in _save_plt
+        """
         self.run_num1 = 0
         self.run_num2 = 0
         self.run_num3 = 0
         
     def _save_plt(self, dim, run_num):
+        """Saves plots as a PNG into a dir if the user sets save=True in the one_dim, two_dim, and three_dim methods
+
+        Args:
+            dim (int): dimension number of the method called, used for naming/finding the directory
+            run_num (int): The run number to use for naming the saved png
+        """
         if not os.path.exists(f'{dim}D-Plots'):
             os.mkdir(f'{dim}D-Plots')
             plt.savefig(f"{dim}D-Plots/{dim}D_run{run_num}")
@@ -40,10 +48,19 @@ class RandomWalk:
                 continue
     
     def _enforce_iter(self, obj):
-            try:
-                return tuple(obj)
-            except TypeError as te:
-                print(f"{obj} is not an iterable object - it is recommended to use a tuple for the starting coordinates")
+        """Internal method used for enforcing the "start" parameter for two_dim and three_dim
+           to be an iterable.
+
+        Args:
+            obj (object): an object of unknown type that will be checked if it is an iterable
+
+        Throws:
+            TypeError
+        """
+        try:
+            return tuple(obj)
+        except TypeError as te:
+            print(f"{obj} is not an iterable object - it is recommended to use a tuple for the starting coordinates")
     
     def one_dim(self, steps, sims=1, start=0, save=False):
         """Displays a plot on the screen of a one-dimensional random walk.
@@ -130,6 +147,7 @@ class RandomWalk:
         left, right, forward, back, down, up = (-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1)
         directions = [left, right, forward, back, down, up]
         
+        start = self._enforce_iter(start)
         for sim in range(sims):
             
             next_coord = start
